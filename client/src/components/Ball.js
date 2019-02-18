@@ -25,15 +25,12 @@ export default class Ball extends PureComponent {
     let newVal = val + delta;
     let newDelta = delta;
 
-    if (newVal > max || newVal < min) {
-      newDelta = -delta;
+    if(newVal > max){
+      newVal = min + newVal - max
     }
 
-    if (newVal < min) {
-      newVal = min - newVal;
-    }
-    if (newVal > max) {
-      newVal = newVal - (newVal - max);
+    if(newVal < min ){
+      newVal = max - newVal
     }
 
     return { val: newVal, delta: newDelta };
@@ -46,6 +43,8 @@ export default class Ball extends PureComponent {
     if (horizontal !== 0 || vertical !== 0) {
       const newX = this.newCoord(x, horizontal, MAX_X, MIN_X);
       const newY = this.newCoord(y, vertical, MAX_Y, MIN_Y);
+
+      //console.log(newX, newY);
 
       this.setState({
         x: newX.val,
