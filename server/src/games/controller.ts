@@ -25,9 +25,14 @@ class GameUpdate {
   board: Board;
 }
 
+interface Movement {
+  vertical: number;
+  horizontal: number;
+}
+
 @JsonController()
 export default class GameController {
-  @Authorized()
+  // @Authorized()
   @Post("/games")
   @HttpCode(201)
   async createGame(@CurrentUser() user: User) {
@@ -75,11 +80,11 @@ export default class GameController {
     return player;
   }
 
-  @Patch("/games/:id([0-9]+)")
+  @Patch("/move/:id([0-9]+)")
   async updateMovement(
     @CurrentUser() user: User,
     @Param("id") gameId: number,
-    @Body() update: GameUpdate
+    @Body() update: Movement
   ) {
     const game = await Game.findOneById(gameId);
     if (!game) throw new NotFoundError(`Game does not exist`);
@@ -87,18 +92,13 @@ export default class GameController {
     const player = await Player.findOne({ user, game });
 
     if (!player) throw new ForbiddenError(`You are not part of this game`);
-    if (game.status !== "started")
-      throw new BadRequestError(`The game is not started yet`);
-    if (player.symbol !== game.turn)
-      throw new BadRequestError(`It's not your turn`);
-    if (!isValidTransition(player.symbol, game.board, update.board)) {
-      throw new BadRequestError(`Invalid move`);
-    }
 
+    game.horizontal = update.horizontal;
+    game.vertical = update.vertical;
     await game.save();
 
     io.emit("action", {
-      type: "UPDATE_GAME_SUCCESS",
+      type: "UPDATE_GAME",
       payload: game
     });
   }
@@ -107,7 +107,7 @@ export default class GameController {
   // the reason that we're using patch here is because this request is not idempotent
   // http://restcookbook.com/HTTP%20Methods/idempotency/
   // try to fire the same requests twice, see what happens
-  /* @Patch("/games/:id([0-9]+)")
+  @Patch("/games/:id([0-9]+)")
   async updateGame(
     @CurrentUser() user: User,
     @Param("id") gameId: number,
@@ -146,7 +146,7 @@ export default class GameController {
 
     return game;
   }
- */
+
   @Authorized()
   @Get("/games/:id([0-9]+)")
   getGame(@Param("id") id: number) {
@@ -156,6 +156,7 @@ export default class GameController {
   @Authorized()
   @Get("/games")
   getGames() {
+    console.log("hi");
     return Game.find();
   }
 }

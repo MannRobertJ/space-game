@@ -35,6 +35,8 @@ class GameDetails extends PureComponent {
   };
 
   render() {
+    console.log("render", this.props.game);
+    console.log(this.props.game);
     const { game, users, authenticated, userId } = this.props;
 
     if (!authenticated) return <Redirect to="/login" />;
@@ -47,31 +49,8 @@ class GameDetails extends PureComponent {
     const winner = game.players
       .filter(p => p.symbol === game.winner)
       .map(p => p.userId)[0];
-
     return (
       <div>
-        <Paper className="outer-paper">
-          <h1>Game #{game.id}</h1>
-
-          <p>Status: {game.status}</p>
-
-          {game.status === "started" &&
-            player &&
-            player.symbol === game.turn && <div>It's your turn!</div>}
-
-          {game.status === "pending" &&
-            game.players.map(p => p.userId).indexOf(userId) === -1 && (
-              <button onClick={this.joinGame}>Join Game</button>
-            )}
-
-          {winner && <p>Winner: {users[winner].firstName}</p>}
-
-          <hr />
-
-          {game.status !== "pending" && (
-            <Board board={game.board} makeMove={this.makeMove} />
-          )}
-        </Paper>
         <Stage
           className="App"
           width={window.innerWidth}
@@ -79,7 +58,7 @@ class GameDetails extends PureComponent {
         >
           <Game
             changeMovement={this.props.changeMovement}
-            movement={this.props.movement}
+            game={this.props.game}
           />
         </Stage>
       </div>

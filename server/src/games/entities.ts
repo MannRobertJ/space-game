@@ -38,7 +38,7 @@ export class Game extends BaseEntity {
   @Column("integer", { default: 0 })
   horizontal: Number;
 
-  @Column("integer", { default: 20 })
+  @Column("integer", { default: 0 })
   vertical: Number;
 
   // this is a relation, read more about them here:

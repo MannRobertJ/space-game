@@ -1,10 +1,9 @@
 import { CHANGE_MOVEMENT, UPDATE_GAME_SUCCESS } from "../actions/movement";
 
-export default (state = { x: 0, y: 0 }, { type, payload }) => {
-  switch (type /* 
-    case CHANGE_MOVEMENT:
-      return payload; */) {
+export default function(state = {}, { type, payload }) {
+  switch (type) {
     case UPDATE_GAME_SUCCESS:
+      console.log(type, payload);
       return {
         ...state,
         [payload.id]: payload
@@ -13,4 +12,4 @@ export default (state = { x: 0, y: 0 }, { type, payload }) => {
     default:
       return state;
   }
-};
+}

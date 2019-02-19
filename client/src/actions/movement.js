@@ -14,8 +14,24 @@ const changeMovementAction = (x, y) => {
 // Using Thunk here to dispatch action to make later communication through the socket simpler.
 
 const updateGameSuccess = () => ({
-  type: UPDATE_GAME_SUCCESS
+  type: "MOVEMENT_CHANGED"
 });
+/* 
+export const changeMovement = (gameId, x, y) => (dispatch, getState) => {
+  const state = getState();
+  const jwt = state.currentUser.jwt;
+
+  if (isExpired(jwt)) return dispatch(logout());
+
+  console.log(gameId, x, y);
+
+  request
+    .patch(`${baseUrl}/move/${gameId}`)
+    .set("Authorization", `Bearer ${jwt}`)
+    .send({ horizontal: x, vertical: y })
+    .then(_ => dispatch(updateGameSuccess()))
+    .catch(err => console.error(err));
+}; */
 
 export const changeMovement = (gameId, x, y) => (dispatch, getState) => {
   const state = getState();
@@ -23,10 +39,13 @@ export const changeMovement = (gameId, x, y) => (dispatch, getState) => {
 
   if (isExpired(jwt)) return dispatch(logout());
 
+  console.log(jwt);
+
   request
-    .patch(`${baseUrl}/games/${gameId}`)
+    .patch(`${baseUrl}/move/${gameId}`)
     .set("Authorization", `Bearer ${jwt}`)
     .send({ horizontal: x, vertical: y })
-    .then(_ => dispatch(updateGameSuccess()))
-    .catch(err => console.error(err));
+    .then(res => console.log(res))
+    // .then(_ => dispatch(updateGameSuccess()))
+    .catch(err => console.error("oh no!", err));
 };

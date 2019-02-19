@@ -35,7 +35,7 @@ export default class UserController {
     return User.findOneById(id);
   }
 
-  @Authorized()
+  // @Authorized()
   @Get("/users")
   allUsers() {
     return User.find();

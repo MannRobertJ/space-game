@@ -12,19 +12,34 @@ export default class Game extends Component {
 
   keys = ["w", "a", "s", "d"];
 
+  /* componentDidMount = () => {
+    this.setState({
+      horizontal: this.props.horizontal,
+      vertical: this.props.vertical
+    });
+  }; */
+
   handleKeyDown = event => {
     switch (event.key) {
       case "w":
-        this.props.changeMovement(this.state.horizontal, -10);
+        this.props.changeMovement(
+          this.props.game.id,
+          this.state.horizontal,
+          -10
+        );
         break;
       case "s":
-        this.props.changeMovement(this.state.horizontal, 10);
+        this.props.changeMovement(
+          this.props.game.id,
+          this.state.horizontal,
+          10
+        );
         break;
       case "a":
-        this.props.changeMovement(-10, this.state.vertical);
+        this.props.changeMovement(this.props.game.id, -10, this.state.vertical);
         break;
       case "d":
-        this.props.changeMovement(10, this.state.vertical);
+        this.props.changeMovement(this.props.game.id, 10, this.state.vertical);
         break;
       default:
         console.log("down: " + event.key);
@@ -34,39 +49,44 @@ export default class Game extends Component {
   handleKeyUp = event => {
     switch (event.key) {
       case "w":
-        this.props.changeMovement(this.state.horizontal, 0);
+        this.props.changeMovement(this.props.game.id, this.state.horizontal, 0);
         break;
       case "s":
-        this.props.changeMovement(this.state.horizontal, 0);
+        this.props.changeMovement(this.props.game.id, this.state.horizontal, 0);
         break;
       case "a":
-        this.props.changeMovement(0, this.state.vertical);
+        this.props.changeMovement(this.props.game.id, 0, this.state.vertical);
         break;
       case "d":
-        this.props.changeMovement(0, this.state.vertical);
+        this.props.changeMovement(this.props.game.id, 0, this.state.vertical);
         break;
       default:
         console.log("up: " + event.key);
     }
   };
 
-  componentDidUpdate = prevProps => {
-    if (prevProps.movement !== this.props.movement) {
+  /* componentDidUpdate = prevProps => {
+    console.log(this.props);
+    if (
+      prevProps.movement.horizontal !== this.props.movement.horizontal ||
+      prevProps.movement.vertical !== this.props.movement.vertical
+    ) {
+      console.log(this.props);
       this.setState({
-        horizontal: this.props.movement.x,
-        vertical: this.props.movement.y
+        horizontal: this.props.game.horizontal,
+        vertical: this.props.game.vertical
       });
     }
-  };
+  }; */
 
   render() {
-    console.log(this.props.movement, this.state);
+    console.log(this.props.game);
     return (
       <Layer>
         <Field />
         <Ball
-          vertical={this.state.vertical}
-          horizontal={this.state.horizontal}
+          vertical={this.props.game.vertical || 0}
+          horizontal={this.props.game.horizontal || 0}
         />
         {this.keys.map(key => (
           <KeyHandler
