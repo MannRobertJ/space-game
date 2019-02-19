@@ -65,20 +65,6 @@ export default class Game extends Component {
     }
   };
 
-  /* componentDidUpdate = prevProps => {
-    console.log(this.props);
-    if (
-      prevProps.movement.horizontal !== this.props.movement.horizontal ||
-      prevProps.movement.vertical !== this.props.movement.vertical
-    ) {
-      console.log(this.props);
-      this.setState({
-        horizontal: this.props.game.horizontal,
-        vertical: this.props.game.vertical
-      });
-    }
-  }; */
-
   render() {
     console.log(this.props.game);
     return (

@@ -45,7 +45,5 @@ export const changeMovement = (gameId, x, y) => (dispatch, getState) => {
     .patch(`${baseUrl}/move/${gameId}`)
     .set("Authorization", `Bearer ${jwt}`)
     .send({ horizontal: x, vertical: y })
-    .then(res => console.log(res))
-    // .then(_ => dispatch(updateGameSuccess()))
     .catch(err => console.error("oh no!", err));
 };

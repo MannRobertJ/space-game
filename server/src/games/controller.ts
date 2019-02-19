@@ -101,6 +101,8 @@ export default class GameController {
       type: "UPDATE_GAME",
       payload: game
     });
+
+    return { message: "this is a response" };
   }
 
   @Authorized()
