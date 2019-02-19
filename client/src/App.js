@@ -2,8 +2,10 @@ import React, { Component } from "react";
 import Game from "./components/Game";
 import "./App.css";
 import { Stage } from "react-konva";
+import { connect } from "react-redux";
+import { getGames } from "./actions/games";
 
-export default class App extends Component {
+class App extends Component {
   render() {
     return (
       <Stage
@@ -11,8 +13,17 @@ export default class App extends Component {
         width={window.innerWidth}
         height={window.innerHeight}
       >
-        <Game />
+        <Game getGames={this.props.getGames} />
       </Stage>
     );
   }
 }
+
+const mapStateToProps = state => ({
+  games: state.games
+});
+
+export default connect(
+  null,
+  { getGames }
+)(App);
