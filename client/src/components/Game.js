@@ -27,6 +27,11 @@ export default class Game extends Component {
         console.log("down: " + event.key);
     }
   };
+
+  componentDidMount() {
+    this.props.getGames();
+  }
+
   handleKeyUp = event => {
     switch (event.key) {
       case "w":
