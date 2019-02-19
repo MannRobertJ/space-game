@@ -3,7 +3,7 @@ import Game from "./components/Game";
 import "./App.css";
 import { Stage } from "react-konva";
 import { connect } from "react-redux";
-import { getGames } from "./actions/games";
+import { changeMovement } from "./actions/movement";
 
 class App extends Component {
   render() {
@@ -13,17 +13,22 @@ class App extends Component {
         width={window.innerWidth}
         height={window.innerHeight}
       >
-        <Game getGames={this.props.getGames} />
+        <Game
+          changeMovement={this.props.changeMovement}
+          movement={this.props.movement}
+        />
       </Stage>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  games: state.games
+  movement: state.movement
 });
 
+// Connecting Field.js to the Store causes an error concerning the Provider tags.
+// We do not know why.
 export default connect(
-  null,
-  { getGames }
+  mapStateToProps,
+  { changeMovement }
 )(App);

@@ -5,52 +5,62 @@ import Ball from "./Ball";
 import KeyHandler, { KEYPRESS } from "react-key-handler";
 
 export default class Game extends Component {
-  state = { vertical: 0, horizontal: 0 };
+  state = {
+    horizontal: this.props.movement.x,
+    vertical: this.props.movement.y
+  };
 
   keys = ["w", "a", "s", "d"];
 
   handleKeyDown = event => {
     switch (event.key) {
       case "w":
-        this.setState({ vertical: -10 });
+        this.props.changeMovement(this.state.horizontal, -10);
         break;
       case "s":
-        this.setState({ vertical: 10 });
+        this.props.changeMovement(this.state.horizontal, 10);
         break;
       case "a":
-        this.setState({ horizontal: -10 });
+        this.props.changeMovement(-10, this.state.vertical);
         break;
       case "d":
-        this.setState({ horizontal: 10 });
+        this.props.changeMovement(10, this.state.vertical);
         break;
       default:
         console.log("down: " + event.key);
     }
   };
 
-  componentDidMount() {
-    this.props.getGames();
-  }
-
   handleKeyUp = event => {
     switch (event.key) {
       case "w":
-        this.setState({ vertical: 0 });
+        this.props.changeMovement(this.state.horizontal, 0);
         break;
       case "s":
-        this.setState({ vertical: 0 });
+        this.props.changeMovement(this.state.horizontal, 0);
         break;
       case "a":
-        this.setState({ horizontal: 0 });
+        this.props.changeMovement(0, this.state.vertical);
         break;
       case "d":
-        this.setState({ horizontal: 0 });
+        this.props.changeMovement(0, this.state.vertical);
         break;
       default:
         console.log("up: " + event.key);
     }
   };
+
+  componentDidUpdate = prevProps => {
+    if (prevProps.movement !== this.props.movement) {
+      this.setState({
+        horizontal: this.props.movement.x,
+        vertical: this.props.movement.y
+      });
+    }
+  };
+
   render() {
+    console.log(this.props.movement, this.state);
     return (
       <Layer>
         <Field />

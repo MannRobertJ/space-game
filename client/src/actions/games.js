@@ -28,7 +28,6 @@ const joinGameSuccess = () => ({
 });
 
 export const getGames = () => (dispatch, getState) => {
-  console.log("egbegr");
   const state = getState();
   if (!state.currentUser) return null;
   /*   const jwt = state.currentUser.jwt;
