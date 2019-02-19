@@ -6,7 +6,6 @@ The state will contain the games in an object with the game ID as key
 */
 
 export default (state = null, { type, payload }) => {
-  console.log("do something");
   switch (type) {
     case USER_LOGOUT:
       return null;
