@@ -1,5 +1,5 @@
 {
-  "name": "space-game",
+  "name": "client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -14,16 +14,19 @@
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "socket.io-client": "^2.2.0",
-    "superagent": "^4.1.0"
+    "superagent": "^4.1.0",
+    "@material-ui/core": "^3.9.2",
+    "@material-ui/icons": "^3.0.2",
+    "acorn": "^6.1.0",
+    "ajv": "^6.9.1",
+    "react-router-dom": "^4.2.2",
+    "typescript": "^3.3.3"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   },
   "browserslist": [
     ">0.2%",

@@ -1,9 +1,15 @@
-import { CHANGE_MOVEMENT } from "../actions/movement";
+import { CHANGE_MOVEMENT, UPDATE_GAME_SUCCESS } from "../actions/movement";
 
-export default (state = { x: 0, y: 0 }, action = {}) => {
-  switch (action.type) {
+export default (state = { x: 0, y: 0 }, { type, payload }) => {
+  switch (type /* 
     case CHANGE_MOVEMENT:
-      return action.movement;
+      return payload; */) {
+    case UPDATE_GAME_SUCCESS:
+      return {
+        ...state,
+        [payload.id]: payload
+      };
+
     default:
       return state;
   }

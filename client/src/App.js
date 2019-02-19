@@ -1,34 +1,37 @@
 import React, { Component } from "react";
-import Game from "./components/Game";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import LoginPage from "./components/login/LoginPage";
+import SignupPage from "./components/signup/SignupPage";
+import GamesList from "./components/games/GamesList";
+import GameDetails from "./components/games/GameDetails";
+import LogoutPage from "./components/logout/LogoutPage";
 import "./App.css";
-import { Stage } from "react-konva";
-import { connect } from "react-redux";
-import { changeMovement } from "./actions/movement";
+import TopBar from "./components/layout/TopBar";
+
+// <Route exact path="/signup" component={SignupPage} />
+// <Route exact path="/games" component={GamesList} />
+// <Route exact path="/games/:id" component={GameDetails} />
 
 class App extends Component {
   render() {
     return (
-      <Stage
-        className="App"
-        width={window.innerWidth}
-        height={window.innerHeight}
-      >
-        <Game
-          changeMovement={this.props.changeMovement}
-          movement={this.props.movement}
-        />
-      </Stage>
+      <Router>
+        <div>
+          <nav>
+            <TopBar />
+          </nav>
+
+          <main style={{ marginTop: 75 }}>
+            <Route exact path="/login" component={LoginPage} />
+            <Route exact path="/logout" component={LogoutPage} />
+            <Route exact path="/signup" component={SignupPage} />
+            <Route exact path="/games" component={GamesList} />
+            <Route exact path="/games/:id" component={GameDetails} />
+            <Route exact path="/" render={() => <Redirect to="/games" />} />
+          </main>
+        </div>
+      </Router>
     );
   }
 }
-
-const mapStateToProps = state => ({
-  movement: state.movement
-});
-
-// Connecting Field.js to the Store causes an error concerning the Provider tags.
-// We do not know why.
-export default connect(
-  mapStateToProps,
-  { changeMovement }
-)(App);
+export default App;

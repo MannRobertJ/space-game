@@ -6,8 +6,8 @@ import KeyHandler, { KEYPRESS } from "react-key-handler";
 
 export default class Game extends Component {
   state = {
-    horizontal: this.props.movement.x,
-    vertical: this.props.movement.y
+    horizontal: 0,
+    vertical: 0
   };
 
   keys = ["w", "a", "s", "d"];

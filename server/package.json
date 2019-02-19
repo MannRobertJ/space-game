@@ -1,5 +1,5 @@
 {
-  "name": "server",
+  "name": "game-starter-b15-server",
   "version": "1.0.0",
   "engine": "11",
   "main": "target/index.js",
@@ -30,7 +30,6 @@
     "mocha": "^5.0.4",
     "nodemon": "^1.18.10",
     "pg": "^7.4.1",
-    "reflect-metadata": "^0.1.13",
     "routing-controllers": "^0.7.7",
     "socket.io": "^2.0.4",
     "socketio-jwt-auth": "^0.0.6",

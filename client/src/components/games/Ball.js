@@ -25,12 +25,12 @@ export default class Ball extends PureComponent {
     let newVal = val + delta;
     let newDelta = delta;
 
-    if(newVal > max){
-      newVal = min + newVal - max
+    if (newVal > max) {
+      newVal = min + newVal - max;
     }
 
-    if(newVal < min ){
-      newVal = max - newVal
+    if (newVal < min) {
+      newVal = max - newVal;
     }
 
     return { val: newVal, delta: newDelta };

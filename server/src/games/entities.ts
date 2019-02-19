@@ -35,6 +35,12 @@ export class Game extends BaseEntity {
   @Column("text", { default: "pending" })
   status: Status;
 
+  @Column("integer", { default: 0 })
+  horizontal: Number;
+
+  @Column("integer", { default: 20 })
+  vertical: Number;
+
   // this is a relation, read more about them here:
   // http://typeorm.io/#/many-to-one-one-to-many-relations
   @OneToMany(_ => Player, player => player.game, { eager: true })
@@ -56,6 +62,6 @@ export class Player extends BaseEntity {
   @Column("char", { length: 1 })
   symbol: Symbol;
 
-  /*  @Column('integer', { name: 'user_id' })
-  userId: number */
+  @Column("integer", { name: "user_id" })
+  userId: number;
 }
